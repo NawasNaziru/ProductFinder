@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/assets/styles.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
+    <title>ProductFinder</title>
+</head>
+
+<body class="simple-style" onLoad="activateUI('<%= ui.flow.activateDiv %>','<%= ui.flow.activateButton %>')">
+
+    <%- include('partials/title-bar.ejs'); %>
+
+    <div class="padded">
+        <!-- Form Partials -->
+
+        <%- include('partials/file-picker.ejs'); %>
+        <br>
+        <hr>
+
+        </td>
+        <table width="100%">
+            <tr>
+                <td width='40%'>
+                    <%- include('partials/image-display.ejs'); %>
+                </td>
+                <td width='60%>'>
+                    <%- include('partials/result-buttons.ejs'); %>
+                    <%- include('partials/label-result.ejs') %>
+                    <%- include('partials/text-result.ejs') %>
+                    <%- include('partials/face-result.ejs') %>                
+                </td>
+            </tr>
+        </table>
+
+
+        <%- include('partials/debug.ejs'); %>
+    </div>
+    <footer style="width: 100%; text-align: center; background-color: #f8f9fa; padding: 10px; font-size: 12px;">
+        <p>Copyright © 2023 NoTime Technologies</p>
+        <p>Designed and Developed by Nawas N. Adam</p>
+    </footer>    
+</body>
+
+</html>
+
+<%- include('partials/ui-scripts.ejs'); %>
+
+<!--<script scr="./views/partials/displaySegmentedObjects.js" type="text/javascript"></script>-->
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<div id="file-picker" class="padded" style="display: flex; justify-content: space-between;">
+    <!-- Create a form element with the action attribute set to "/seller" and the method attribute set to "POST" -->
+    <form action="/seller" method="POST">
+       <label>Select Seller File:</label>
+       <input type="file" id="seller-input" name="filename" accept=".txt" value="Select Seller" style="width: 90%;">
+       <!-- Add a submit button to the form element -->
+       <input type="submit" value="Copy seller images">
+    </form>
+    <form method="POST" action="/rekog" style="width: 80%;">
+        <label>Image to be segmented:</label>
+        <input class="field" id="filename" type="file" name="filename" accept=".png,.jpg" required onchange="previewFile()" style="width: 100%;">
+        <label>Names of objects in the image:</label>
+        <input placeholder="Use comma to separate the names" class="field" id="imageLabels" type="text" name="imageLabels" required style="width: 100%;">
+        <input type="submit" value="Segment">
+    </form>
+    <button onclick="window.location.href='/'" style="border-radius: 50%; width: 18%; text-align: center; font-size: 30px;">Home/Stop</button>
+   
+</div>
+
+
+<div id="container" style="display: flex;">
+    <div id="image-display" class="padded" style="margin-right: 2em;">
+        <% if (!ui.supressUi) { %>
+        <label>Input Image:</label>
+        <% if (ui.data.filename) { %>
+            <img src="<%= ui.data.filename %>" height="250">
+            <% } else { %>
+                <img id="preview" src="blank.png" height="250">
+            <% } %>
+        <% } %>
+    </div>
+    
+    <div>
+        <div id="result-buttons" class="padded">
+            <label></label>
+            <form method="POST" action="/query">
+                <input type="text" name="inputText" required placeholder="What do you want to buy" style="width: 70%; height: 2em; margin-right: 1em;">
+                <input type="text" name="location" required placeholder="Enter Location" style="width: 30%; height: 2em; margin-right: 1em;">
+                <input id='text-button' class="menu-button" type="submit" value="Query"
+                    onclick="activateUI('text-result-div','text-button')" style="width: 25%; height: 2em;">
+            </form>
+        </div>
+
+        <!-- Display objects extraction results & product query result -->
+        <div id="label-result-div" class="menu-div padded">
+            <% if (ui.data.seller && ui.data.seller.length > 0) { %>
+                <% for (let i = 0; i < ui.data.seller.length; i++) { %>
+                  <p><%= ui.data.seller[i] %></p>
+                  <p>Product <%= i + 1 %>:</p>
+                  <img src="<%= ui.data.prodImage[i] %>" height="150">
+                  <br>
+                <% } %>
+            <% } else if (ui.data.notrecognized && ui.data.notrecognized.trim() !== '') { %>
+                <p><%= ui.data.notrecognized %></p>
+            <% } else if ((ui.data.images && ui.data.images.length > 0) || (ui.data.failed_captions && ui.data.failed_captions.length > 0)) { %>
+                <p>Identify unextracted objects from below by comparing to input image, crop them manually, and add them to the extracted folder now </p>
+                <% for(let i=0; i<ui.data.images.length; i++) { %>
+                    <img src="<%= ui.data.images[i] %>" alt="Object Image <%= i+1 %>" height="150">
+                <% } %>
+                <p>No caption generated for the below extracted images, add them manually now</p>
+                <% for(let j=0; j<ui.data.failed_captions; j++) { %>
+                    <img src="<%= ui.data.failed_captions[j] %>" alt="Object Image <%= j+1 %>" height="150">
+                <% } %>
+            <% } %>
+        </div>                        
+    </div>
+</div>
+
+<script>
+    function previewFile() {
+        const preview = document.querySelector('#preview');
+        const file = document.querySelector('#filename').files[0];
+        const reader = new FileReader();
+    
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+        }, false);
+    
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

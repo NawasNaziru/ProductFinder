@@ -1,0 +1,47 @@
+{
+  "name": "product-finder",
+  "version": "1.0.0",
+  "description": "productfinder by NoTime Tech",
+  "main": "app.js",
+  "dependencies": {
+    "aws-sdk": "^2.1276.0",
+    "axios": "^1.5.1",
+    "bluebird": "^3.7.2",
+    "dotenv": "^16.4.5",
+    "ejs": "^2.7.4",
+    "ejs-electron": "^2.1.1",
+    "esm": "^3.2.25",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "formdata": "^0.10.4",
+    "fs-extra": "^11.2.0",
+    "googleapis": "^126.0.1",
+    "got": "^13.0.0",
+    "jimp": "^0.22.10",
+    "mv": "^2.1.1",
+    "node-fetch": "^3.3.2",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "rimraf": "^5.0.5",
+    "sharp": "^0.32.6",
+    "util": "^0.12.5"
+  },
+  "scripts": {
+    "start": "electron",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nawasadam"
+  },
+  "author": "Nawas Naziru Adam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nawasadam"
+  },
+  "homepage": "https://github.com/#readme",
+  "keywords": [],
+  "devDependencies": {
+    "electron": "^28.1.0"
+  }
+}
