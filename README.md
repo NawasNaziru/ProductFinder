@@ -16,6 +16,9 @@ With products images of various sellers at hand, it is now the job of the market
 
 The extracted images are only saved temporarily in the ‘extracted’ folder for the purpose of the stages that follow (captioning each of the extracted images etc) after which they are moved to the ‘productsImages’ folder where they are saved permanently. This is to give room for the next image to be segmented and its extracted items to be passed through same process.
 
+
+![seg](https://github.com/NawasNaziru/ProductFinder/assets/28715515/3b3a8cb7-e685-4862-9824-2790363b08e5)
+
  **•Image captioning**
 
 Immediately after segmentation, without any operator action, each individual product  image  in the “extracted” folder is automatically passed to an image captioning model which returns the textual description of the item in the image. Some descriptions would be completely wrong since the model can't be perfect. To solve for such instances, the user entered  labels  during the image segmentation stage are each added to the respective caption. How do you identify which label belongs to which extracted item since no any particular order? This is where semantic search model comes into play. Each label is compared to the image generated caption and any label which is the closest in meaning(semantically) to the generated caption is the correct label to add to the generated caption. 
