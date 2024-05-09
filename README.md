@@ -1,8 +1,9 @@
 **ABOUT**
 
-                 ![rekognition](https://github.com/NawasNaziru/ProductFinder/assets/28715515/1a19cd2a-fa03-480f-b9df-70d06579738e)![rekognition](https://github.com/NawasNaziru/ProductFinder/assets/28715515/a9137244-4d9f-47d2-9181-b7a52c5ca780)
+                 
 
-                             
+                             ![Logo](https://github.com/NawasNaziru/ProductFinder/assets/28715515/74586edc-0eaa-45cb-9c55-1f627ea53f73)
+
 We are a small company that solves the issue of in-person buyers finding it difficult to locate what they want to buy from physical stores that have no online presence. We use AI from products data collection to helping buyers locate products they want to buy.
 
 **HOW IT WORKS**
