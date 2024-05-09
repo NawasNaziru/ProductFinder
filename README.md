@@ -39,6 +39,7 @@ Just as in the image captioning stage above, each image in the extracted folder 
 Next, the generated caption along with the user entered label and the optically recognized text on the image is mixed with the data from the seller info text file and the image name and the result saved in a file named ‘metadata.json’.
 
  **• Semantic search**
+ 
 When a buyer comes to us looking for where to buy a certain product, the operator enters the textual description of the product along with the preferred location(town name or city name or state name with even street name) into the query fields on the UI. On submission, the search data along with the whole descriptions(captions and others) of all the products in the metadata.json file are sent as input to a semantic search model. What the semantic search model does is look at the search data and returns probabilities representing how close each description is to the user search data. The images whose descriptions have the highest probabilities are retrieved from productsImages folder and displayed to the user along with the seller address and other details required for locating the product from the metadata.json.
 
 
