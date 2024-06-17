@@ -12,6 +12,7 @@ module.exports = function (app) {
 	const path = require('path');
 	const axios = require('axios');
 	const fsExtra = require("fs-extra");
+	const apiKey = process.env.HUGGINGFACE_API_KEY;
 
 	require('dotenv').config();
 
@@ -395,10 +396,44 @@ var storeImages = function(inputImage, bounding_boxes, full_image){
       });
 };
 
-        
+var detectLabels = async function (imageFilePath) {
+    try {
+        // Read the image file
+        const imageBase64 = fs.readFileSync(imageFilePath);
+
+        // Send the POST request to Hugging Face API
+        const response = await fetch(
+            "https://api-inference.huggingface.co/models/facebook/detr-resnet-101",
+            {
+                headers: { Authorization: `Bearer ${apiKey}` },
+                method: 'POST',
+                body: imageBase64
+            }
+        );
+
+        // Check if the request was successful
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Parse the response body as JSON
+        const results = await response.json();
+
+        // Extract only the bounding boxes from the results
+        const boundingBoxes = results.map(result => result.box);
+
+        // Return the array of bounding boxes
+        return boundingBoxes;
+    } catch (error) {
+        // Log and re-throw the error
+        console.error(error);
+        throw error;
+    }
+};
+    
 		
 	// detect image labels
-	var detectLabels = function (imageBase64, candidateLabels) {
+	/*var detectLabels = function (imageBase64, candidateLabels) {
 		return new Promise(function (resolve, reject) {
 			// Create the request body
 			const body = {
@@ -408,7 +443,7 @@ var storeImages = function(inputImage, bounding_boxes, full_image){
 	
 			// Send the POST request
 			//http://localhost:5000/
-			fetch('http://0.0.0.0:5000/detect_objects', {
+			fetch(' http://192.168.219.5:5000/detect_objects', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -433,7 +468,7 @@ var storeImages = function(inputImage, bounding_boxes, full_image){
 				reject(error);
 			});
 		});
-	}
+	}*/
 		
 		  
 		// main controller logic - load the file, then call recog APIs in parallel, collect promises and render screen
@@ -441,7 +476,7 @@ var storeImages = function(inputImage, bounding_boxes, full_image){
 		// loadimage - on promise resolved,  call detectlabels and detecttext functions
 	loadImage(file).then(async function resolveLoadImage(buffer) {
 				
-				Promise.all([detectLabels(buffer, ui.data.image_labels)]).then(function resolveAll(arr) {
+				Promise.all([detectLabels(file, ui.data.image_labels)]).then(function resolveAll(arr) {
 					console.log('bbxs:', arr[0]);
 				 if (arr[0].length === 0) {
 					ui.data.images = [];
